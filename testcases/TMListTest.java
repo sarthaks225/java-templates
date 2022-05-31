@@ -8,6 +8,13 @@ list1.add("100");
 list1.add("110");
 list1.add("car");
 
+TMArrayList list4=new TMArrayList();
+list4.copyFrom(list1);
+
+list4.forEach((p)->{
+System.out.println("list4 : "+p);});
+
+
 for(int i=0; i<list1.getSize(); ++i) System.out.printf("list1 %d) %s\n",i,list1.get(i));
 list1.add(0,"50");
 for(int i=0; i<list1.getSize(); ++i) System.out.printf("%d) %s\n",i,list1.get(i));

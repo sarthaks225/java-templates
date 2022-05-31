@@ -1,10 +1,9 @@
 package utils;
 
-import javax.management.RuntimeErrorException;
 
 public class TMLinkedList<T> implements TMList<T>
 {
-    class Node
+    class Node<T>
     {
         public T data;
         public Node next;
@@ -50,7 +49,7 @@ public void add(int index,T data)
      this.add(data);
      return;
     }
-    Node t=new Node();
+    Node<T> t=new Node<T>();
     t.data=data;
     if(index==0)
     {
@@ -59,7 +58,7 @@ public void add(int index,T data)
     }
     else
     {
-    Node node;
+    Node<T> node;
     node=this.start;
     int ep=index-1;
     for(int i=0; i<ep; ++i) node=node.next;
@@ -96,7 +95,7 @@ public T removeAt(int index)
         this.size--;
         return data;
     }
-    Node node=start;
+    Node<T> node=start;
     int ep=index-1;
     for(int i=0; i<ep; ++i) node=node.next;   // searching for node before to remove
     data=(T)node.next.data;
@@ -121,7 +120,7 @@ public int getSize()
 public T get(int index)
 {
     if(index>=size || index<0) throw new ArrayIndexOutOfBoundsException("Invalid index: "+index);
-    Node node=start;
+    Node<T> node=start;
     for(int i=0; i<index; ++i) node=node.next;
     
     return (T)node.data;
@@ -136,7 +135,7 @@ if(this.size-1==index)
     this.end.data=data;
     return;
 }
- Node node=start;
+ Node<T> node=start;
 for(int i=0; i<index; ++i) node=node.next;
  node.data=data;
 }
@@ -144,7 +143,7 @@ for(int i=0; i<index; ++i) node=node.next;
 class TMLinkedListIterator<T> implements TMIterator <T>
 {
     private Node node;
-    TMLinkedListIterator(Node node)
+    TMLinkedListIterator(Node<T> node)
     {
         this.node=node;
     }
@@ -162,15 +161,15 @@ class TMLinkedListIterator<T> implements TMIterator <T>
     }
 }
 
-public TMIterator iterator()
+public TMIterator<T> iterator()
 {
     return new TMLinkedListIterator<T>(this.start);
 }
 
-public void copyTo(TMList other)
+public void copyTo(TMList<T> other)
 {
     other.clear();
-    TMIterator iterator;
+    TMIterator<T> iterator;
     iterator=this.iterator();
     while(iterator.hasNext())
     {
@@ -178,10 +177,10 @@ public void copyTo(TMList other)
     }
 
 }
-public void copyFrom(TMList other)
+public void copyFrom(TMList<T> other)
 {
     this.clear();
-    TMIterator iterator;
+    TMIterator<T> iterator;
     iterator=other.iterator();
     while(iterator.hasNext())
     {
@@ -190,9 +189,9 @@ public void copyFrom(TMList other)
 
 }
 
-public void appendTo(TMList other)
+public void appendTo(TMList<T> other)
 {
-    TMIterator iterator;
+    TMIterator<T> iterator;
     iterator=this.iterator();
     while(iterator.hasNext())
     {
@@ -200,9 +199,9 @@ public void appendTo(TMList other)
     }
 
 }
-public void appendFrom(TMList other)
+public void appendFrom(TMList<T> other)
 {
-    TMIterator iterator;
+    TMIterator<T> iterator;
     iterator=other.iterator();
     while(iterator.hasNext())
     {
@@ -211,7 +210,11 @@ public void appendFrom(TMList other)
 }
 
 
-
+public void forEach(TMListItemAcceptor<T> a)
+{
+    if(a==null) return;
+    for(Node node=start; node!=null; node=node.next) a.accept((T)node.data);
+}
 
 
 }

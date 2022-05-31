@@ -14,11 +14,12 @@ public T get(int index);
 
 public void update(int index,T data);
 
-public TMIterator iterator();
+public TMIterator<T> iterator();
 
-public void copyTo(TMList other);
-public void copyFrom(TMList other);
+public void copyTo(TMList<T> other);
+public void copyFrom(TMList<T> other);
 
-public void appendTo(TMList other);
-public void appendFrom(TMList other);
+public void appendTo(TMList<T> other);
+public void appendFrom(TMList<T> other);
+public void forEach(TMListItemAcceptor<T> a);
 }

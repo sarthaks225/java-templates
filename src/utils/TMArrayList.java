@@ -144,18 +144,18 @@ class TMArrayListIterator <T> implements TMIterator<T>
 
 
 
-public TMIterator iterator()
+public TMIterator<T> iterator()
 {
-	return new TMArrayListIterator(0);
+	return new TMArrayListIterator<T>(0);
 	
 }
 
 
-public void copyTo(TMList other)
+public void copyTo(TMList<T> other)
 {
 
 	other.clear();
-    TMIterator iterator;
+    TMIterator<T> iterator;
     iterator=this.iterator();
     while(iterator.hasNext())
     {
@@ -165,12 +165,12 @@ public void copyTo(TMList other)
 }
 
 
-public void copyFrom(TMList other)
+public void copyFrom(TMList<T> other)
 {
 
 
 	this.clear();
-    TMIterator iterator;
+    TMIterator<T> iterator;
     iterator=other.iterator();
     while(iterator.hasNext())
     {
@@ -181,10 +181,10 @@ public void copyFrom(TMList other)
 
 
 
-public void appendTo(TMList other)
+public void appendTo(TMList<T> other)
 {
 
-	TMIterator iterator;
+	TMIterator<T> iterator;
     iterator=this.iterator();
     while(iterator.hasNext())
     {
@@ -192,10 +192,10 @@ public void appendTo(TMList other)
     }
 
 }
-public void appendFrom(TMList other)
+public void appendFrom(TMList<T> other)
 {
 
-	TMIterator iterator;
+	TMIterator<T> iterator;
     iterator=other.iterator();
     while(iterator.hasNext())
     {
@@ -204,5 +204,10 @@ public void appendFrom(TMList other)
 
 }
 
+public void forEach(TMListItemAcceptor<T> a)
+{
+	if(a==null) return;
+	for(int i=0; i<this.size; ++i) a.accept((T)collection[i]);
+}
 
 }
